@@ -7,12 +7,9 @@
 </head>
 <body>
     <script>
-        //prompt user for selection(case-insensitive)
-        let playerSelection = prompt('What is your choice?').toLowerCase();
-
-        let computerSelection = getComputerChoice();
-        /* in JS I can assign a variable to another before that variable is initialised
-        In python, referencing a function bf it is initialised leads to name error*/
+        //make playerSelection & computerSelection a global variable
+        let playerSelection;
+        let computerSelection;
         
         function getComputerChoice(){
 /*generate random number from 0-2:math.random generates a number from 0-1(exclusive)
@@ -35,10 +32,15 @@ so by multiplying 3, we get 0-2(exc of 3). Math.floor rounds off the number to g
                 ComputerChoice = 'paper';
             }
             
-            console.log(ComputerChoice);
+            return ComputerChoice;
         }
 
-        function round(playerSelection,computerSelection){
+        
+        function playround(){
+            playerSelection = prompt('What is your choice?').toLowerCase();
+            computerSelection = getComputerChoice();
+
+            console.log(`The computer chose ${computerSelection}`);
             //make the scenarios where comp wins (c v p)
                 //r v s , p v r , s v p
                 if (computerSelection == 'rock' && playerSelection == 'scissor'
@@ -49,22 +51,38 @@ so by multiplying 3, we get 0-2(exc of 3). Math.floor rounds off the number to g
                 }
 
                 //draw
-                else if(computerSelection == 'rock' && playerSelection == 'rock'
-                || computerSelection == 'paper' && playerSelection == 'paper'
-                || computerSelection == 'scissor' && playerSelection == 'scissor'){
+                else if(computerSelection === playerSelection){
 
                     return 'Draw!'
                 }
 
-                else if(computerSelection == 'rock' && playerSelection == 'paper'
-                || computerSelection == 'paper' && playerSelection == 'scissor'
-                || computerSelection == 'scissor' && playerSelection == 'rock'){
+                else {
 
                     return `You win! ${playerSelection} beats ${computerSelection}`
                 }
         }
+        //create a point variable
+        let point = 0;
 
-        
+        function playGame(playerSelection ,computerSelection){
+            //execute the game 5 times
+            console.log(`match 1: ${playround(computerSelection)}`);
+            
+
+            console.log(`match 2: ${playround(computerSelection)}`);
+            
+
+            console.log(`match 3: ${playround(computerSelection)}`);
+            
+
+            console.log(`match 4: ${playround(computerSelection)}`);
+            
+
+            console.log(`match 5: ${playround(computerSelection)}`);
+      
+            }
+
+        playGame(playerSelection ,computerSelection);
     </script>
 </body>
 </html>
