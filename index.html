@@ -35,12 +35,16 @@ so by multiplying 3, we get 0-2(exc of 3). Math.floor rounds off the number to g
             return ComputerChoice;
         }
 
-        
+
+        //create a point variable
+        let point = 0;
+
         function playround(){
             playerSelection = prompt('What is your choice?').toLowerCase();
             computerSelection = getComputerChoice();
 
             console.log(`The computer chose ${computerSelection}`);
+
             //make the scenarios where comp wins (c v p)
                 //r v s , p v r , s v p
                 if (computerSelection == 'rock' && playerSelection == 'scissor'
@@ -58,11 +62,11 @@ so by multiplying 3, we get 0-2(exc of 3). Math.floor rounds off the number to g
 
                 else {
 
+                    point+=1
                     return `You win! ${playerSelection} beats ${computerSelection}`
                 }
         }
-        //create a point variable
-        let point = 0;
+        
 
         function playGame(playerSelection ,computerSelection){
             //execute the game 5 times
@@ -82,7 +86,20 @@ so by multiplying 3, we get 0-2(exc of 3). Math.floor rounds off the number to g
       
             }
 
+        //write a point calculator function
+        function result(){
+            if (point>2){
+                console.log(`Your score is ${point}! You won the game!`);
+            }
+
+            else {
+                console.log(`Your score is ${point}! You lost the game!`);
+            }
+        }  
+
         playGame(playerSelection ,computerSelection);
+        result();
+
     </script>
 </body>
 </html>
