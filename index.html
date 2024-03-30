@@ -6,7 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <script>
+    <div class="buttons">
+        <button id="rock">Rock</button>
+        <button id="scissors">Scissors</button>
+        <button id="paper">Paper</button>
+    </div>
+
+    <script>//to allow for node creation bf JS is read, put the code at bottom
         //make playerSelection & computerSelection a global variable
         let playerSelection;
         let computerSelection;
@@ -62,29 +68,10 @@ so by multiplying 3, we get 0-2(exc of 3). Math.floor rounds off the number to g
 
                 else {
 
-                    point+=1
+                    point+=1;
                     return `You win! ${playerSelection} beats ${computerSelection}`
                 }
         }
-        
-
-        function playGame(playerSelection ,computerSelection){
-            //execute the game 5 times
-            console.log(`match 1: ${playround(computerSelection)}`);
-            
-
-            console.log(`match 2: ${playround(computerSelection)}`);
-            
-
-            console.log(`match 3: ${playround(computerSelection)}`);
-            
-
-            console.log(`match 4: ${playround(computerSelection)}`);
-            
-
-            console.log(`match 5: ${playround(computerSelection)}`);
-      
-            }
 
         //write a point calculator function
         function result(){
@@ -97,7 +84,6 @@ so by multiplying 3, we get 0-2(exc of 3). Math.floor rounds off the number to g
             }
         }  
 
-        playGame(playerSelection ,computerSelection);
         result();
 
     </script>
