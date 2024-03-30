@@ -8,15 +8,31 @@
 <body>
     <div class="buttons">
         <button id="rock">Rock</button>
-        <button id="scissors">Scissors</button>
+        <button id="scissors">scissors</button>
         <button id="paper">Paper</button>
     </div>
 
+    <div class = 'results'>
+        <!--display all console.logs here using dom methods-->
+        <script>
+            //display:
+                //computer selection
+                //result for each round
+                //winner of the game and the points of each indiv
+
+        </script>
+    </div>
+
     <script>//to allow for node creation bf JS is read, put the code at bottom
+        
         //make playerSelection & computerSelection a global variable
         let playerSelection;
         let computerSelection;
+        let playerPoint = 0; //need to add point for both cpu and player
+        let computerPoint=0;
+        let container = document.querySelector('.results');
         
+
         function getComputerChoice(){
 /*generate random number from 0-2:math.random generates a number from 0-1(exclusive)
 so by multiplying 3, we get 0-2(exc of 3). Math.floor rounds off the number to get the int
@@ -31,7 +47,7 @@ so by multiplying 3, we get 0-2(exc of 3). Math.floor rounds off the number to g
             }
 
             else if (randomNumber == 2){
-                ComputerChoice = 'scissor';
+                ComputerChoice = 'scissors';
             }
 
             else if (randomNumber == 3){
@@ -42,50 +58,97 @@ so by multiplying 3, we get 0-2(exc of 3). Math.floor rounds off the number to g
         }
 
 
-        //create a point variable
-        let point = 0;
+        function clickButton(){
+            
+            //add event listener to the 3 buttons:use delegation
+            let btn = document.querySelector('.buttons')
 
-        function playround(){
-            playerSelection = prompt('What is your choice?').toLowerCase();
+            //add eventlistener to parent element aka .buttons
+            btn.addEventListener('click',(event) => {
+                let target = event.target;
+
+                switch (target.id) {
+                    case 'rock':
+                        playround('rock');
+                        break;
+                    case 'scissors':
+                        playround('scissors');
+                        break;
+                    case 'paper':
+                        playround('paper');
+                        break;
+                }
+            })
+        }   
+
+        function playround(playerSelection){
             computerSelection = getComputerChoice();
 
-            console.log(`The computer chose ${computerSelection}`);
+            //create, set attributes then append the element
+            let show_cpu_choice=document.createElement('div');
+            show_cpu_choice.textContent=`The computer chose ${computerSelection}`;
+            container.appendChild(show_cpu_choice);
+
+            //create element to display the verdict for individual rounds
+            let indRound = document.createElement('div');
 
             //make the scenarios where comp wins (c v p)
                 //r v s , p v r , s v p
-                if (computerSelection == 'rock' && playerSelection == 'scissor'
+                if (computerSelection == 'rock' && playerSelection == 'scissors'
                 || computerSelection == 'paper' && playerSelection == 'rock'
-                || computerSelection == 'scissor' && playerSelection == 'paper'){
-
-                    return `You Lose! ${computerSelection} beats ${playerSelection}`;
+                || computerSelection == 'scissors' && playerSelection == 'paper'){
+                    
+                    computerPoint+=1;
+                    //return `You Lose! ${computerSelection} beats ${playerSelection}`;
+                    indRound.textContent = `You Lose! ${computerSelection} beats ${playerSelection}! Computer has ${computerPoint} points!`;
                 }
 
                 //draw
                 else if(computerSelection === playerSelection){
 
-                    return 'Draw!'
+                    //return 'Draw!'
+                    indRound.textContent = `Draw!`;
                 }
 
                 else {
 
-                    point+=1;
-                    return `You win! ${playerSelection} beats ${computerSelection}`
+                    playerPoint+=1;
+                    //return `You win! ${playerSelection} beats ${computerSelection}`
+                    indRound.textContent = `You Win! ${playerSelection} beats ${computerSelection}}! You have ${playerPoint} points!`;
+                }
+
+                container.appendChild(indRound);
+
+                if (playerPoint === 5 || computerPoint === 5){
+                    result();
                 }
         }
 
-        //write a point calculator function
+        //write a point calculator function(need to remove)
         function result(){
-            if (point>2){
-                console.log(`Your score is ${point}! You won the game!`);
+            let finalResult = document.createElement('div');
+            if (playerPoint===5){
+                finalResult.textContent = `Your score is ${playerPoint}! You won the game!`;
             }
 
-            else {
-                console.log(`Your score is ${point}! You lost the game!`);
+            if (computerPoint===5) {
+                finalResult.textContent = `The computer's score is ${computerPoint}! You lost the game!`;
             }
+
+            //reset player and computer point
+            playerPoint = 0;
+            computerPoint = 0;
+            //append the element
+            container.appendChild(finalResult);
+
         }  
-
-        result();
-
+        /*need to call the function to set up the event listener! everytime the buttons are clicked,
+        the function activates playerselection function which triggers result only when the conditions
+        are met!
+        We cannot call the result function here as it would not accurately rep the result which is 
+        user based ie. depending on user clicking the buttons!!!! Hence don't manually call the result
+        function here!!!q*/
+        clickButton(); 
     </script>
 </body>
 </html>
